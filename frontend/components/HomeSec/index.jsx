@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import VideoPlayer from '../hls-player';
+import ReactPlayer from 'react-player'
 
 function HomeSec() {
 
@@ -30,13 +31,13 @@ function HomeSec() {
   }
 
   useEffect(() => {
-    if (StreamID != "" && !StreamActive){
+    if (StreamID != "" && !StreamActive) {
       setInterval(() => {
         checkStream()
       }, 10000)
     }
   }, [StreamID])
-  
+
 
   return (
     <div className='grid grid-flow-col p-2'>
@@ -44,7 +45,6 @@ function HomeSec() {
         <h1 className='text-xl font-bold'>Livestream Prototype</h1>
         <div className='w-max justify-start text-left'>
           <h2 className='text-lg'>Procedure:</h2>
-
           <ol className='list-disc'>
             <li>
               1. Generate Stream key: {" "}
@@ -85,9 +85,19 @@ function HomeSec() {
       <div>
         {
           ((StreamID != "") && (StreamActive)) ?
-          <VideoPlayer src={`/live/${StreamID}.m3u8`} />
-          :
-          <p>Stream is Offline</p>
+            // <VideoPlayer src={`/live/${StreamID}.m3u8`} />
+            <>
+              <p>Hello</p>
+              <ReactPlayer url={`/live/${StreamID}.m3u8`}
+                autoplay={true}
+                playing={true}
+                controls={true}
+                width="800px"
+                height="auto"
+              />
+            </>
+            :
+            <p>Stream is Offline</p>
         }
       </div>
     </div>);
